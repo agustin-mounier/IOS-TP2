@@ -15,6 +15,10 @@
 		FA3AEF201EC5178B009E6649 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA3AEF1E1EC5178B009E6649 /* Main.storyboard */; };
 		FA3AEF221EC5178B009E6649 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA3AEF211EC5178B009E6649 /* Assets.xcassets */; };
 		FA3AEF251EC5178B009E6649 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA3AEF231EC5178B009E6649 /* LaunchScreen.storyboard */; };
+		FA3AEF2D1EC51939009E6649 /* AStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3AEF2C1EC51939009E6649 /* AStar.swift */; };
+		FA3AEF2F1EC51E2B009E6649 /* MyTileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = FA3AEF2E1EC51E2B009E6649 /* MyTileSet.sks */; };
+		FA3AEF311EC52704009E6649 /* CGPointExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3AEF301EC52704009E6649 /* CGPointExtension.swift */; };
+		FA6C6D571ED21718009E0C32 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6C6D561ED21718009E0C32 /* Player.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +32,10 @@
 		FA3AEF211EC5178B009E6649 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA3AEF241EC5178B009E6649 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FA3AEF261EC5178B009E6649 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA3AEF2C1EC51939009E6649 /* AStar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AStar.swift; sourceTree = "<group>"; };
+		FA3AEF2E1EC51E2B009E6649 /* MyTileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyTileSet.sks; sourceTree = "<group>"; };
+		FA3AEF301EC52704009E6649 /* CGPointExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGPointExtension.swift; sourceTree = "<group>"; };
+		FA6C6D561ED21718009E0C32 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,13 +70,17 @@
 			children = (
 				FA3AEF141EC5178A009E6649 /* AppDelegate.swift */,
 				FA3AEF161EC5178A009E6649 /* GameScene.sks */,
+				FA3AEF2E1EC51E2B009E6649 /* MyTileSet.sks */,
 				FA3AEF181EC5178A009E6649 /* Actions.sks */,
 				FA3AEF1A1EC5178A009E6649 /* GameScene.swift */,
 				FA3AEF1C1EC5178A009E6649 /* GameViewController.swift */,
 				FA3AEF1E1EC5178B009E6649 /* Main.storyboard */,
-				FA3AEF211EC5178B009E6649 /* Assets.xcassets */,
 				FA3AEF231EC5178B009E6649 /* LaunchScreen.storyboard */,
+				FA3AEF211EC5178B009E6649 /* Assets.xcassets */,
 				FA3AEF261EC5178B009E6649 /* Info.plist */,
+				FA3AEF2C1EC51939009E6649 /* AStar.swift */,
+				FA3AEF301EC52704009E6649 /* CGPointExtension.swift */,
+				FA6C6D561ED21718009E0C32 /* Player.swift */,
 			);
 			path = "IOS - TP2";
 			sourceTree = "<group>";
@@ -133,6 +145,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA3AEF2F1EC51E2B009E6649 /* MyTileSet.sks in Resources */,
 				FA3AEF201EC5178B009E6649 /* Main.storyboard in Resources */,
 				FA3AEF171EC5178A009E6649 /* GameScene.sks in Resources */,
 				FA3AEF221EC5178B009E6649 /* Assets.xcassets in Resources */,
@@ -149,7 +162,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA3AEF1B1EC5178A009E6649 /* GameScene.swift in Sources */,
+				FA3AEF2D1EC51939009E6649 /* AStar.swift in Sources */,
+				FA3AEF311EC52704009E6649 /* CGPointExtension.swift in Sources */,
 				FA3AEF1D1EC5178A009E6649 /* GameViewController.swift in Sources */,
+				FA6C6D571ED21718009E0C32 /* Player.swift in Sources */,
 				FA3AEF151EC5178A009E6649 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -314,6 +330,7 @@
 				FA3AEF2B1EC5178B009E6649 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
