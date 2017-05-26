@@ -16,20 +16,26 @@ class GameScene: SKScene {
     
     var map:  SKTileMapNode!
     var cam: SKCameraNode!
-    var player: Player!
+    var knight: Knight!
+    var cyclops = [Cyclop]()
     
     let camScale = CGFloat(2.0)
     
     override func didMove(to view: SKView) {
         map = (scene?.childNode(withName:"Map"))! as! SKTileMapNode
-        player = Player(map: map)
+        knight = Knight(map: map)
         
         cam = SKCameraNode()
         cam.setScale(camScale)
         camera = cam
-        cam.position = player.position
+        cam.position = knight.position
         
-        addChild(player)
+        for i in 0...4 {
+            cyclops.append(Cyclop(map: map))
+            addChild(cyclops[i-1])
+        }
+        
+        addChild(knight)
         addChild(cam)
     
     }
@@ -52,15 +58,20 @@ class GameScene: SKScene {
         
         let touchLocation = touch.location(in: self)
         
-        player.goTo(point: touchLocation.toMapCoords(map: map))
+        knight.goTo(point: touchLocation.toMapCoords(map: map))
         
     }
     
     
     override func update(_ currentTime: TimeInterval) {
-        if player.moving {
-            player.move()
+        if knight.moving {
+            knight.move()
         }
-        cam.position = player.position
+        
+        for i in 0...4 {
+            cyclops[i].move()
+        }
+        
+        cam.position = knight.position
     }
 }

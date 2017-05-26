@@ -10,45 +10,33 @@ import UIKit
 import SpriteKit
 
 class Player: SKSpriteNode {
-    var AStar: AStarAlgorithm!
     var moving = false
-    var movingPath = [CGPoint]()
-    var nextInPath: CGPoint?
+
     var direction: CGPoint!
-    
     var map: SKTileMapNode!
+    var PLAYER_SPEED = CGFloat(10)
+    var steerProtocol: SteeringProtocol!
+    var nextInPath: CGPoint!
+    var textureName: String!
     
-    let PLAYER_SPEED = CGFloat(10)
-    
-    init(map: SKTileMapNode) {
-        let texture = SKTexture(imageNamed: "knight_down")
+    init(map: SKTileMapNode, textureName: String) {
+        let texture = SKTexture(imageNamed: "\(textureName)_down")
         super.init(texture: texture, color: UIColor.clear, size: map.tileSize)
         self.position = CGPoint(x: 200, y:200)
-        AStar = AStarAlgorithm(map: map)
         self.map = map
+        self.textureName = textureName
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func goTo(point: CGPoint) {
-        let positionInMap = position.toMapCoords(map: map)
-        
-        if positionInMap.equalTo(point) {
-            return
-        }
-        
-        movingPath = AStar.getPath(from: positionInMap, to: point)
-        moving = true
-        move()
-    }
-    
     func move() {
+        
         if nextInPath == nil {
-            nextInPath = movingPath.remove(at: 0)
+            nextInPath = steerProtocol.steer()
             direction = (position.toMapCoords(map: map) - nextInPath!) * -1
-            updateTexture()
+            updateTexture(textureName: textureName)
         }
         
         position = position + (direction.reverse() * PLAYER_SPEED)
@@ -57,27 +45,27 @@ class Player: SKSpriteNode {
         if abs(distanceToCenter.x) < PLAYER_SPEED && abs(distanceToCenter.y) < PLAYER_SPEED {
             position = (nextInPath?.toScreenCoords(map: map))!
             
-            if(movingPath.isEmpty){
+            if(steerProtocol.steeringEnded()){
                 moving = false
                 nextInPath = nil
             } else {
-                nextInPath = movingPath.remove(at: 0)
+                nextInPath = steerProtocol.steer()
                 direction = (position.toMapCoords(map: map) - nextInPath!) * -1
-                updateTexture()
+                updateTexture(textureName: textureName)
             }
         }
         
     }
     
-    func updateTexture() {
+    func updateTexture(textureName: String) {
         if direction.equalTo(CGPoint(x: -1, y: 0)) {
-            texture = SKTexture(imageNamed: "knight_down")
+            texture = SKTexture(imageNamed: "\(textureName)_down")
         } else if direction.equalTo(CGPoint(x: 1, y: 0)) {
-            texture = SKTexture(imageNamed: "knight_up")
+            texture = SKTexture(imageNamed: "\(textureName)_up")
         } else if direction.equalTo(CGPoint(x: 0, y: 1)) {
-            texture = SKTexture(imageNamed: "knight_right")
+            texture = SKTexture(imageNamed: "\(textureName)_right")
         } else if direction.equalTo(CGPoint(x: 0, y: -1)) {
-            texture = SKTexture(imageNamed: "knight_left")
+            texture = SKTexture(imageNamed: "\(textureName)_left")
         }
     }
 }
