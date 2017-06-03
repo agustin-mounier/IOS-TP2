@@ -9,13 +9,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "IOS - TP2/AStar.swift"
-            timestampString = "517098704.550715"
+            filePath = "IOS - TP2/BloodAnimation.swift"
+            timestampString = "518226877.249851"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
-            landmarkName = "getPath(from:to:)"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "create(subject:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

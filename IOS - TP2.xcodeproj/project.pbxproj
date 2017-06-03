@@ -19,6 +19,8 @@
 		FA3AEF2F1EC51E2B009E6649 /* MyTileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = FA3AEF2E1EC51E2B009E6649 /* MyTileSet.sks */; };
 		FA3AEF311EC52704009E6649 /* CGPointExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3AEF301EC52704009E6649 /* CGPointExtension.swift */; };
 		FA6C6D571ED21718009E0C32 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6C6D561ED21718009E0C32 /* Player.swift */; };
+		FADBAEE41EE1E56600A798EF /* PersuitSteering.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADBAEE31EE1E56600A798EF /* PersuitSteering.swift */; };
+		FADBAEE71EE3717800A798EF /* BloodAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADBAEE61EE3717800A798EF /* BloodAnimation.swift */; };
 		FAFD9EE31ED7564700B48482 /* Cyclop.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFD9EE21ED7564700B48482 /* Cyclop.swift */; };
 		FAFD9EE51ED75E9900B48482 /* Knight.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFD9EE41ED75E9900B48482 /* Knight.swift */; };
 		FAFD9EE71ED75F5E00B48482 /* PathFollowingSteering.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFD9EE61ED75F5E00B48482 /* PathFollowingSteering.swift */; };
@@ -41,6 +43,8 @@
 		FA3AEF2E1EC51E2B009E6649 /* MyTileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyTileSet.sks; sourceTree = "<group>"; };
 		FA3AEF301EC52704009E6649 /* CGPointExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGPointExtension.swift; sourceTree = "<group>"; };
 		FA6C6D561ED21718009E0C32 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		FADBAEE31EE1E56600A798EF /* PersuitSteering.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersuitSteering.swift; sourceTree = "<group>"; };
+		FADBAEE61EE3717800A798EF /* BloodAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BloodAnimation.swift; sourceTree = "<group>"; };
 		FAFD9EE21ED7564700B48482 /* Cyclop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cyclop.swift; sourceTree = "<group>"; };
 		FAFD9EE41ED75E9900B48482 /* Knight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Knight.swift; sourceTree = "<group>"; };
 		FAFD9EE61ED75F5E00B48482 /* PathFollowingSteering.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathFollowingSteering.swift; sourceTree = "<group>"; };
@@ -78,6 +82,7 @@
 		FA3AEF131EC5178A009E6649 /* IOS - TP2 */ = {
 			isa = PBXGroup;
 			children = (
+				FADBAEE51EE3715F00A798EF /* Animations */,
 				FAFD9EEC1ED7659E00B48482 /* Players */,
 				FAFD9EEB1ED7658800B48482 /* Utils */,
 				FAFD9EEA1ED7656B00B48482 /* Steering */,
@@ -95,12 +100,21 @@
 			path = "IOS - TP2";
 			sourceTree = "<group>";
 		};
+		FADBAEE51EE3715F00A798EF /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				FADBAEE61EE3717800A798EF /* BloodAnimation.swift */,
+			);
+			name = Animations;
+			sourceTree = "<group>";
+		};
 		FAFD9EEA1ED7656B00B48482 /* Steering */ = {
 			isa = PBXGroup;
 			children = (
 				FAFD9EE61ED75F5E00B48482 /* PathFollowingSteering.swift */,
 				FAFD9EE81ED7603500B48482 /* SteeringProtocol.swift */,
 				FAFD9EED1ED7688400B48482 /* WondererSteering.swift */,
+				FADBAEE31EE1E56600A798EF /* PersuitSteering.swift */,
 			);
 			name = Steering;
 			sourceTree = "<group>";
@@ -201,10 +215,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAFD9EE91ED7603500B48482 /* SteeringProtocol.swift in Sources */,
+				FADBAEE41EE1E56600A798EF /* PersuitSteering.swift in Sources */,
 				FA3AEF1B1EC5178A009E6649 /* GameScene.swift in Sources */,
 				FA3AEF2D1EC51939009E6649 /* AStar.swift in Sources */,
 				FA3AEF311EC52704009E6649 /* CGPointExtension.swift in Sources */,
 				FAFD9EE31ED7564700B48482 /* Cyclop.swift in Sources */,
+				FADBAEE71EE3717800A798EF /* BloodAnimation.swift in Sources */,
 				FAFD9EEE1ED7688400B48482 /* WondererSteering.swift in Sources */,
 				FAFD9EE51ED75E9900B48482 /* Knight.swift in Sources */,
 				FA3AEF1D1EC5178A009E6649 /* GameViewController.swift in Sources */,

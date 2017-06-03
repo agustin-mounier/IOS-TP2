@@ -20,6 +20,7 @@ class GameScene: SKScene {
     var cyclops = [Cyclop]()
     
     let camScale = CGFloat(2.0)
+    let CYCLOPS_COUNT = 1
     
     override func didMove(to view: SKView) {
         map = (scene?.childNode(withName:"Map"))! as! SKTileMapNode
@@ -30,11 +31,10 @@ class GameScene: SKScene {
         camera = cam
         cam.position = knight.position
         
-        for i in 0...4 {
-            cyclops.append(Cyclop(map: map))
-            addChild(cyclops[i-1])
+        for i in 1...CYCLOPS_COUNT {
+            cyclops.append(Cyclop(map: map, knight: knight))
+            addChild(cyclops[i - 1])
         }
-        
         addChild(knight)
         addChild(cam)
     
@@ -58,7 +58,14 @@ class GameScene: SKScene {
         
         let touchLocation = touch.location(in: self)
         
-        knight.goTo(point: touchLocation.toMapCoords(map: map))
+        let cyclopTapped = cyclopTap(point: touchLocation)
+        
+        if cyclopTapped == nil {
+            knight.goTo(point: touchLocation.toMapCoords(map: map))
+        } else {
+            knight.kill(objective: cyclopTapped!)
+        }
+        
         
     }
     
@@ -68,10 +75,26 @@ class GameScene: SKScene {
             knight.move()
         }
         
-        for i in 0...4 {
-            cyclops[i].move()
+        for i in 1...CYCLOPS_COUNT {
+            if cyclops[i - 1].moving {
+                cyclops[i - 1].move()
+            }
+            cyclops[i - 1].scanForKnight()
         }
         
         cam.position = knight.position
+    }
+    
+    func cyclopTap(point: CGPoint) -> Cyclop? {
+        
+        let pointCoords = point.toMapCoords(map: map)
+        
+        for i in 1...CYCLOPS_COUNT {
+            if pointCoords.equalTo(cyclops[i - 1].position.toMapCoords(map: map)) {
+                return cyclops[i - 1]
+            }
+        }
+        
+        return nil
     }
 }

@@ -18,6 +18,9 @@ class Player: SKSpriteNode {
     var steerProtocol: SteeringProtocol!
     var nextInPath: CGPoint!
     var textureName: String!
+    var selected = false
+    
+    var hp: Int!
     
     init(map: SKTileMapNode, textureName: String) {
         let texture = SKTexture(imageNamed: "\(textureName)_down")
@@ -59,13 +62,29 @@ class Player: SKSpriteNode {
     
     func updateTexture(textureName: String) {
         if direction.equalTo(CGPoint(x: -1, y: 0)) {
-            texture = SKTexture(imageNamed: "\(textureName)_down")
+            if selected {
+                texture = SKTexture(imageNamed: "\(textureName)_down_selected")
+            } else {
+                texture = SKTexture(imageNamed: "\(textureName)_down")
+            }
         } else if direction.equalTo(CGPoint(x: 1, y: 0)) {
-            texture = SKTexture(imageNamed: "\(textureName)_up")
+            if selected {
+                texture = SKTexture(imageNamed: "\(textureName)_up_selected")
+            } else {
+                texture = SKTexture(imageNamed: "\(textureName)_up")
+            }
         } else if direction.equalTo(CGPoint(x: 0, y: 1)) {
-            texture = SKTexture(imageNamed: "\(textureName)_right")
+            if selected {
+                texture = SKTexture(imageNamed: "\(textureName)_right_selected")
+            } else {
+                texture = SKTexture(imageNamed: "\(textureName)_right")
+            }
         } else if direction.equalTo(CGPoint(x: 0, y: -1)) {
-            texture = SKTexture(imageNamed: "\(textureName)_left")
+            if selected {
+                texture = SKTexture(imageNamed: "\(textureName)_left_selected")
+            } else {
+                texture = SKTexture(imageNamed: "\(textureName)_left")
+            }
         }
     }
 }

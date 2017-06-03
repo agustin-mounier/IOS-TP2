@@ -12,6 +12,7 @@ import SpriteKit
 class Knight: Player {
 
     var AStar: AStarAlgorithm!
+    var target: Player!
     
     init(map: SKTileMapNode) {
         super.init(map: map, textureName: "knight")
@@ -19,6 +20,9 @@ class Knight: Player {
         AStar = AStarAlgorithm(map: map)
         PLAYER_SPEED = CGFloat(10)
         steerProtocol = PathFollowingSteering()
+        let blood = BloodAnimation.create(subject:  self)
+
+        self.run(SKAction.repeatForever(blood))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -26,6 +30,11 @@ class Knight: Player {
     }
     
     func goTo(point: CGPoint) {
+        if !(steerProtocol is PathFollowingSteering) {
+            steerProtocol = PathFollowingSteering()
+            target.selected = false
+        }
+        
         let positionInMap = position.toMapCoords(map: map)
         
         if positionInMap.equalTo(point) {
@@ -38,7 +47,14 @@ class Knight: Player {
         move()
     }
     
+    func kill(objective: Player) {
+        target = objective
+        target.selected = true
+        target.updateTexture(textureName: target.textureName)
+        steerProtocol = PersuitSteering(map: map, lastTile: position.toMapCoords(map: map), objective: objective)
+        
+        
+    }
     
-    
-    
+
 }
