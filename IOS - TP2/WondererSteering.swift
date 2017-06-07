@@ -28,8 +28,9 @@ class WondererSteering: NSObject, SteeringProtocol {
             let column = random(max: map.numberOfColumns)
             path = AStar.getPath(from: lastTile, to: CGPoint(x: row, y: column))
         }
-        
-        lastTile = path.remove(at: 0)
+        if !path.isEmpty {
+            lastTile = path.remove(at: 0)
+        }
         return lastTile
     }
     

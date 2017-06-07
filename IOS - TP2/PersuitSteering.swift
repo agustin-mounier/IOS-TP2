@@ -25,7 +25,9 @@ class PersuitSteering: NSObject, SteeringProtocol {
         self.objective = objective
         self.lastObjectiveTile = objective.position.toMapCoords(map: map)
         path = AStar.getPath(from: lastTile, to: lastObjectiveTile)
-        path.removeLast()
+        if !path.isEmpty {
+            path.removeLast()
+        }
     }
     
     func steer() -> CGPoint {
@@ -34,7 +36,9 @@ class PersuitSteering: NSObject, SteeringProtocol {
         if !lastObjectiveTile.equalTo(objectiveCoords) {
             path = AStar.getPath(from: lastTile, to: objectiveCoords)
             lastObjectiveTile = objectiveCoords
-            path.removeLast()
+            if !path.isEmpty {
+                path.removeLast()
+            }
         }
         
         if path.isEmpty {

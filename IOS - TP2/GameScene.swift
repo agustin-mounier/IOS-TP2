@@ -20,7 +20,11 @@ class GameScene: SKScene {
     var cyclops = [Cyclop]()
     
     let camScale = CGFloat(2.0)
-    let CYCLOPS_COUNT = 1
+    let CYCLOPS_COUNT = 5
+    
+    var lastTime = 0.0
+    
+    var players = [Player]()
     
     override func didMove(to view: SKView) {
         map = (scene?.childNode(withName:"Map"))! as! SKTileMapNode
@@ -32,12 +36,14 @@ class GameScene: SKScene {
         cam.position = knight.position
         
         for i in 1...CYCLOPS_COUNT {
-            cyclops.append(Cyclop(map: map, knight: knight))
+            let cyclop = Cyclop(map: map, knight: knight)
+            cyclops.append(cyclop)
             addChild(cyclops[i - 1])
+            players.append(cyclop)
         }
         addChild(knight)
         addChild(cam)
-    
+        players.append(knight)
     }
     
 
@@ -63,23 +69,36 @@ class GameScene: SKScene {
         if cyclopTapped == nil {
             knight.goTo(point: touchLocation.toMapCoords(map: map))
         } else {
+            cyclopTapped?.selected = true
             knight.kill(objective: cyclopTapped!)
         }
-        
         
     }
     
     
     override func update(_ currentTime: TimeInterval) {
-        if knight.moving {
-            knight.move()
-        }
         
-        for i in 1...CYCLOPS_COUNT {
-            if cyclops[i - 1].moving {
-                cyclops[i - 1].move()
+        let timePassed = currentTime - lastTime
+        lastTime = currentTime
+
+        
+        for player in players {
+            player.updateTexture()
+            
+            if player.moving && player.state != Player.State.DEAD {
+                player.move()
             }
-            cyclops[i - 1].scanForKnight()
+            
+            switch player.state {
+            case Player.State.ATTACKING:
+                player.attackHandler(time: timePassed)
+                break
+            case Player.State.WONDERING:
+                player.wonder()
+                break
+            case Player.State.DEAD:
+                break
+            }
         }
         
         cam.position = knight.position

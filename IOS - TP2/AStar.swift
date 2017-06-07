@@ -12,7 +12,8 @@ import SpriteKit
 
 class AStarAlgorithm: NSObject {
     
-    var gameMap:  SKTileMapNode!
+    var gameMap: SKTileMapNode!
+    var players: [Player]!
     var openSet = Set<CGPoint>()
     var closedSet = Set<CGPoint>()
     var cameFrom = [CGPoint: CGPoint]()

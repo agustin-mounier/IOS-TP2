@@ -22,7 +22,11 @@ class Cyclop: Player {
         self.knight = knight
         steerProtocol = WondererSteering(map: map, lastTile: CGPoint(x: row, y: column))
         PLAYER_SPEED = CGFloat(8)
+        hp = CGFloat(100)
+        damage = CGFloat(8)
+        hitPerSecond = 1.5
         moving = true
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -38,15 +42,28 @@ class Cyclop: Player {
         if distBetween(from: currentPosition, to: knightPosition) <= VIEW_DISTANCE {
             nextInPath = nil
             self.steerProtocol = PersuitSteering(map: map, lastTile: currentPosition, objective: knight)
+            state = State.ATTACKING
         }
     }
     
-    func distBetween(from: CGPoint, to: CGPoint) -> CGFloat {
-        return sqrt(pow(from.x - to.x, 2) + pow(from.y - to.y, 2))
+    override func wonder() {
+        scanForKnight()
     }
     
     func random(max maxNumber: Int) -> Int {
         return Int(arc4random_uniform(UInt32(maxNumber)))
     }
     
+    override func attack() {
+        let currentPosition = position.toMapCoords(map: map)
+        let knightPosition = knight.position.toMapCoords(map: map)
+        
+        if distBetween(from: currentPosition, to: knightPosition) <= 2 {
+            knight.reciveDamage(damage: damage)
+            if knight.state == State.DEAD {
+                state = State.WONDERING
+            }
+        }
+    }
+
 }

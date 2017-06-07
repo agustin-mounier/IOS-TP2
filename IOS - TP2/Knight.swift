@@ -20,9 +20,9 @@ class Knight: Player {
         AStar = AStarAlgorithm(map: map)
         PLAYER_SPEED = CGFloat(10)
         steerProtocol = PathFollowingSteering()
-        let blood = BloodAnimation.create(subject:  self)
-
-        self.run(SKAction.repeatForever(blood))
+        hp = CGFloat(250)
+        damage = CGFloat(10)
+        hitPerSecond = 1.0
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -49,12 +49,16 @@ class Knight: Player {
     
     func kill(objective: Player) {
         target = objective
-        target.selected = true
-        target.updateTexture(textureName: target.textureName)
         steerProtocol = PersuitSteering(map: map, lastTile: position.toMapCoords(map: map), objective: objective)
         
-        
+        state = State.ATTACKING
     }
     
+    override func attack() {
+        target.reciveDamage(damage: damage)
+        if target.state == State.DEAD {
+            state = State.WONDERING
+        }
+    }
 
 }
