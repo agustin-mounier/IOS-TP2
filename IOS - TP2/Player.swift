@@ -15,8 +15,7 @@ class Player: SKSpriteNode {
     var moving = false
 
     var direction: CGPoint!
-    var map: SKTileMapNode!
-    var players: [Player]!
+    var map: GameMap!
     var PLAYER_SPEED = CGFloat(10)
     var steerProtocol: SteeringProtocol!
     var nextInPath: CGPoint!
@@ -29,15 +28,16 @@ class Player: SKSpriteNode {
     
     var timeToAttack = 0.0
     var hitPerSecond = 0.0
+    
+    let safeCheck = CGPoint()
 
 
-    init(map: SKTileMapNode, textureName: String, players: [Player]) {
+    init(map: GameMap, textureName: String) {
         let texture = SKTexture(imageNamed: "\(textureName)_down")
         super.init(texture: texture, color: UIColor.clear, size: map.tileSize)
         self.position = CGPoint(x: 200, y:200)
         self.map = map
         self.textureName = textureName
-        self.players = players
         hp = CGFloat(0)
     }
     
@@ -55,10 +55,14 @@ class Player: SKSpriteNode {
             direction = (position.toMapCoords(map: map) - nextInPath!) * -1
         }
         
+        if nextInPath == safeCheck {
+            moving = false
+        }
+        
         position = position + (direction.reverse() * PLAYER_SPEED)
         let distanceToCenter = position - (nextInPath?.toScreenCoords(map: map))!
         
-        if abs(distanceToCenter.x) < PLAYER_SPEED && abs(distanceToCenter.y) < PLAYER_SPEED {
+        if abs(distanceToCenter.x) < PLAYER_SPEED*2 && abs(distanceToCenter.y) < PLAYER_SPEED*2 {
             position = (nextInPath?.toScreenCoords(map: map))!
             
             if(steerProtocol.steeringEnded()){
@@ -132,4 +136,9 @@ class Player: SKSpriteNode {
     func distBetween(from: CGPoint, to: CGPoint) -> CGFloat {
         return abs(from.x - to.x) + abs(from.y - to.y)
     }
+    
+    func sqDistBetween(from: CGPoint, to: CGPoint) -> CGFloat {
+        return sqrt(pow(from.x - to.x, 2) + pow(from.y - to.y, 2))
+    }
+
 }

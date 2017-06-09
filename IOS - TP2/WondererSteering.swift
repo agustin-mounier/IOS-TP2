@@ -12,20 +12,25 @@ import SpriteKit
 class WondererSteering: NSObject, SteeringProtocol {
 
     var AStar: AStarAlgorithm!
-    var map: SKTileMapNode!
+    var map: GameMap!
     var path = [CGPoint]()
     var lastTile: CGPoint!
     
-    init(map: SKTileMapNode, lastTile: CGPoint, players: [Player]) {
-        self.AStar = AStarAlgorithm(map: map, players: players)
+    init(map: GameMap, lastTile: CGPoint) {
+        self.AStar = AStarAlgorithm(map: map)
         self.map = map
         self.lastTile = lastTile
     }
     
     func steer() -> CGPoint {
         if path.isEmpty {
-            let row = random(max: map.numberOfRows)
-            let column = random(max: map.numberOfColumns)
+            var row: Int
+            var column: Int
+            repeat {
+                row = random(max: map.numberOfRows-1)
+                column = random(max: map.numberOfColumns-1)
+            } while !(map.tileDefinition(atColumn: column, row: row)?.name?.hasPrefix("water_sand"))!
+            
             path = AStar.getPath(from: lastTile, to: CGPoint(x: row, y: column))
         }
         if !path.isEmpty {

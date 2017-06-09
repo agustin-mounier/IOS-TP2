@@ -12,14 +12,14 @@ import SpriteKit
 class PersuitSteering: NSObject, SteeringProtocol {
     
     var AStar: AStarAlgorithm!
-    var map: SKTileMapNode!
+    var map: GameMap!
     var path = [CGPoint]()
     var lastTile: CGPoint!
     var objective: SKSpriteNode!
     var lastObjectiveTile: CGPoint!
     
-    init(map: SKTileMapNode, lastTile: CGPoint, objective: SKSpriteNode, players: [Player]) {
-        self.AStar = AStarAlgorithm(map: map, players: players)
+    init(map: GameMap, lastTile: CGPoint, objective: SKSpriteNode) {
+        self.AStar = AStarAlgorithm(map: map)
         self.map = map
         self.lastTile = lastTile
         self.objective = objective

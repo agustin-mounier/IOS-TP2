@@ -22,6 +22,7 @@
 		FADBAEE41EE1E56600A798EF /* PersuitSteering.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADBAEE31EE1E56600A798EF /* PersuitSteering.swift */; };
 		FADBAEE71EE3717800A798EF /* BloodAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADBAEE61EE3717800A798EF /* BloodAnimation.swift */; };
 		FAF3C2E01EEB4A21009553FC /* GameMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF3C2DF1EEB4A21009553FC /* GameMap.swift */; };
+		FAF3C2E21EEB52ED009553FC /* SKTileDefinitionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF3C2E11EEB52ED009553FC /* SKTileDefinitionExtension.swift */; };
 		FAFD9EE31ED7564700B48482 /* Cyclop.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFD9EE21ED7564700B48482 /* Cyclop.swift */; };
 		FAFD9EE51ED75E9900B48482 /* Knight.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFD9EE41ED75E9900B48482 /* Knight.swift */; };
 		FAFD9EE71ED75F5E00B48482 /* PathFollowingSteering.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFD9EE61ED75F5E00B48482 /* PathFollowingSteering.swift */; };
@@ -47,6 +48,7 @@
 		FADBAEE31EE1E56600A798EF /* PersuitSteering.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersuitSteering.swift; sourceTree = "<group>"; };
 		FADBAEE61EE3717800A798EF /* BloodAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BloodAnimation.swift; sourceTree = "<group>"; };
 		FAF3C2DF1EEB4A21009553FC /* GameMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameMap.swift; sourceTree = "<group>"; };
+		FAF3C2E11EEB52ED009553FC /* SKTileDefinitionExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTileDefinitionExtension.swift; sourceTree = "<group>"; };
 		FAFD9EE21ED7564700B48482 /* Cyclop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cyclop.swift; sourceTree = "<group>"; };
 		FAFD9EE41ED75E9900B48482 /* Knight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Knight.swift; sourceTree = "<group>"; };
 		FAFD9EE61ED75F5E00B48482 /* PathFollowingSteering.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathFollowingSteering.swift; sourceTree = "<group>"; };
@@ -90,15 +92,15 @@
 				FAFD9EEB1ED7658800B48482 /* Utils */,
 				FAFD9EEA1ED7656B00B48482 /* Steering */,
 				FA3AEF141EC5178A009E6649 /* AppDelegate.swift */,
-				FA3AEF161EC5178A009E6649 /* GameScene.sks */,
+				FA3AEF1A1EC5178A009E6649 /* GameScene.swift */,
 				FAD26F911EE8B44D00B38704 /* MyTileSet.sks */,
 				FA3AEF181EC5178A009E6649 /* Actions.sks */,
-				FA3AEF1A1EC5178A009E6649 /* GameScene.swift */,
 				FA3AEF1C1EC5178A009E6649 /* GameViewController.swift */,
 				FA3AEF1E1EC5178B009E6649 /* Main.storyboard */,
 				FA3AEF231EC5178B009E6649 /* LaunchScreen.storyboard */,
 				FA3AEF211EC5178B009E6649 /* Assets.xcassets */,
 				FA3AEF261EC5178B009E6649 /* Info.plist */,
+				FA3AEF161EC5178A009E6649 /* GameScene.sks */,
 			);
 			path = "IOS - TP2";
 			sourceTree = "<group>";
@@ -135,6 +137,7 @@
 			children = (
 				FA3AEF2C1EC51939009E6649 /* AStar.swift */,
 				FA3AEF301EC52704009E6649 /* CGPointExtension.swift */,
+				FAF3C2E11EEB52ED009553FC /* SKTileDefinitionExtension.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -225,6 +228,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAF3C2E21EEB52ED009553FC /* SKTileDefinitionExtension.swift in Sources */,
 				FAFD9EE91ED7603500B48482 /* SteeringProtocol.swift in Sources */,
 				FADBAEE41EE1E56600A798EF /* PersuitSteering.swift in Sources */,
 				FA3AEF1B1EC5178A009E6649 /* GameScene.swift in Sources */,

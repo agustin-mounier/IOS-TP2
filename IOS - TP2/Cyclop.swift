@@ -14,13 +14,17 @@ class Cyclop: Player {
     let VIEW_DISTANCE = CGFloat(60)
     var knight: Knight!
     
-    init(map: SKTileMapNode, knight: Knight, players: [Player]) {
-        super.init(map: map, textureName: "cyclop", players: players)
-        let row = random(max: map.numberOfRows)
-        let column = random(max: map.numberOfColumns)
+    init(map: GameMap, knight: Knight) {
+        super.init(map: map, textureName: "cyclop")
+        var row: Int
+        var column: Int
+        repeat {
+            row = random(max: map.numberOfRows-1)
+            column = random(max: map.numberOfColumns-1)
+        } while !(map.tileDefinition(atColumn: column, row: row)?.name?.hasPrefix("water_sand"))!
         self.position = map.centerOfTile(atColumn: column, row: row)
         self.knight = knight
-        steerProtocol = WondererSteering(map: map, lastTile: CGPoint(x: row, y: column), players: players)
+        steerProtocol = WondererSteering(map: map, lastTile: CGPoint(x: row, y: column))
         PLAYER_SPEED = CGFloat(8)
         hp = CGFloat(100)
         damage = CGFloat(8)
@@ -39,9 +43,10 @@ class Cyclop: Player {
         
         let currentPosition = position.toMapCoords(map: map)
         let knightPosition = knight.position.toMapCoords(map: map)
+        
         if distBetween(from: currentPosition, to: knightPosition) <= VIEW_DISTANCE {
             nextInPath = nil
-            self.steerProtocol = PersuitSteering(map: map, lastTile: currentPosition, objective: knight, players: players)
+            self.steerProtocol = PersuitSteering(map: map, lastTile: currentPosition, objective: knight)
             state = State.ATTACKING
         }
     }

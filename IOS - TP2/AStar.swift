@@ -12,17 +12,15 @@ import SpriteKit
 
 class AStarAlgorithm: NSObject {
     
-    var gameMap: SKTileMapNode!
-    var players: [Player]!
+    var gameMap: GameMap!
     var openSet = Set<CGPoint>()
     var closedSet = Set<CGPoint>()
     var cameFrom = [CGPoint: CGPoint]()
     var gScore = [CGPoint: CGFloat]()
     var fScore = [CGPoint: CGFloat]()
     
-    init(map: SKTileMapNode, players: [Player]) {
+    init(map: GameMap) {
         self.gameMap = map
-        self.players = players
     }
     
     func getPath(from: CGPoint, to: CGPoint) -> [CGPoint] {
@@ -70,12 +68,12 @@ class AStarAlgorithm: NSObject {
     
     func heuristic(from: CGPoint, to: CGPoint) -> CGFloat {
         
-        for player in players {
-            if intersectsTile(p1: from, p2: to, tileCenter: player.position) {
-                return CGFloat.infinity
-            }
-        }
         
+//        for waterTile in gameMap.waterTiles {
+//            if intersectsTile(p1: from.toScreenCoords(map: gameMap), p2: to.toScreenCoords(map: gameMap), tileCenter: CGPoint(x: waterTile.getRow(), y: waterTile.getCol()).toScreenCoords(map: gameMap)) {
+//                return CGFloat.infinity
+//            }
+//        }
         
         return sqrt(pow(from.x - to.x, 2) + pow(from.y - to.y, 2))
     }

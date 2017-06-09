@@ -14,21 +14,21 @@ class GameScene: SKScene {
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
     
-    var map:  SKTileMapNode!
+    var map:  GameMap!
     var cam: SKCameraNode!
     var knight: Knight!
     var cyclops = [Cyclop]()
     
-    let camScale = CGFloat(2.0)
-    let CYCLOPS_COUNT = 5
+    let camScale = CGFloat(3.0)
+    let CYCLOPS_COUNT = 2
     
     var lastTime = 0.0
     
     var players = [Player]()
     
     override func didMove(to view: SKView) {
-        map = (scene?.childNode(withName:"Map"))! as! SKTileMapNode
-        knight = Knight(map: map, players: players)
+        map = GameMap(map: (scene?.childNode(withName:"Map"))! as! SKTileMapNode, players: players)
+        knight = Knight(map: map)
         
         cam = SKCameraNode()
         cam.setScale(camScale)
@@ -36,7 +36,7 @@ class GameScene: SKScene {
         cam.position = knight.position
         
         for i in 1...CYCLOPS_COUNT {
-            let cyclop = Cyclop(map: map, knight: knight, players: players)
+            let cyclop = Cyclop(map: map, knight: knight)
             cyclops.append(cyclop)
             addChild(cyclops[i - 1])
             players.append(cyclop)
@@ -44,17 +44,6 @@ class GameScene: SKScene {
         addChild(knight)
         addChild(cam)
         players.append(knight)
-    }
-    
-
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        guard let touch = touches.first else {
-//            return
-//        }
-        
-//        let touchLocation = touch.location(in: self)
-        
-        
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {

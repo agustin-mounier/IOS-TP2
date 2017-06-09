@@ -12,16 +12,18 @@ import SpriteKit
 class GameMap: SKTileMapNode {
 
     var players: [Player]!
-    var waterTiles: [NSObject]!
+    var waterTiles = [SKTileDefinition]()
     
     init(map: SKTileMapNode, players: [Player]) {
         self.players = players
         var tileGroups = [SKTileGroup]()
-        for row in 0...map.numberOfRows {
-            for column in 0...map.numberOfColumns {
+        for row in 0...map.numberOfRows-1 {
+            for column in 0...map.numberOfColumns-1 {
                 let tileDef = map.tileDefinition(atColumn: column, row: row)
-                for texture in (tileDef?.textures)! {
-                    print(texture.description)
+            
+                if (tileDef?.name?.hasPrefix("water_sand"))! {
+                    tileDef?.setRowAndCol(row: row, col: column)
+                    waterTiles.append(tileDef!)
                 }
                 tileGroups.append(map.tileGroup(atColumn: column, row: row)!)
             }
