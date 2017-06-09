@@ -28,7 +28,7 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         map = (scene?.childNode(withName:"Map"))! as! SKTileMapNode
-        knight = Knight(map: map)
+        knight = Knight(map: map, players: players)
         
         cam = SKCameraNode()
         cam.setScale(camScale)
@@ -36,7 +36,7 @@ class GameScene: SKScene {
         cam.position = knight.position
         
         for i in 1...CYCLOPS_COUNT {
-            let cyclop = Cyclop(map: map, knight: knight)
+            let cyclop = Cyclop(map: map, knight: knight, players: players)
             cyclops.append(cyclop)
             addChild(cyclops[i - 1])
             players.append(cyclop)

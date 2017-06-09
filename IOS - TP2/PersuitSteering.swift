@@ -18,8 +18,8 @@ class PersuitSteering: NSObject, SteeringProtocol {
     var objective: SKSpriteNode!
     var lastObjectiveTile: CGPoint!
     
-    init(map: SKTileMapNode, lastTile: CGPoint, objective: SKSpriteNode) {
-        self.AStar = AStarAlgorithm(map: map)
+    init(map: SKTileMapNode, lastTile: CGPoint, objective: SKSpriteNode, players: [Player]) {
+        self.AStar = AStarAlgorithm(map: map, players: players)
         self.map = map
         self.lastTile = lastTile
         self.objective = objective

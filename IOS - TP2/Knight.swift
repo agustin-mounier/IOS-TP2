@@ -14,10 +14,10 @@ class Knight: Player {
     var AStar: AStarAlgorithm!
     var target: Player!
     
-    init(map: SKTileMapNode) {
-        super.init(map: map, textureName: "knight")
+    init(map: SKTileMapNode, players: [Player]) {
+        super.init(map: map, textureName: "knight", players: players)
         self.position = CGPoint(x: 200, y:200)
-        AStar = AStarAlgorithm(map: map)
+        AStar = AStarAlgorithm(map: map, players: players)
         PLAYER_SPEED = CGFloat(10)
         steerProtocol = PathFollowingSteering()
         hp = CGFloat(250)
@@ -49,7 +49,7 @@ class Knight: Player {
     
     func kill(objective: Player) {
         target = objective
-        steerProtocol = PersuitSteering(map: map, lastTile: position.toMapCoords(map: map), objective: objective)
+        steerProtocol = PersuitSteering(map: map, lastTile: position.toMapCoords(map: map), objective: objective, players: players)
         
         state = State.ATTACKING
     }

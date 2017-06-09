@@ -16,8 +16,8 @@ class WondererSteering: NSObject, SteeringProtocol {
     var path = [CGPoint]()
     var lastTile: CGPoint!
     
-    init(map: SKTileMapNode, lastTile: CGPoint) {
-        self.AStar = AStarAlgorithm(map: map)
+    init(map: SKTileMapNode, lastTile: CGPoint, players: [Player]) {
+        self.AStar = AStarAlgorithm(map: map, players: players)
         self.map = map
         self.lastTile = lastTile
     }

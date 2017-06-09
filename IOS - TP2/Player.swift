@@ -16,6 +16,7 @@ class Player: SKSpriteNode {
 
     var direction: CGPoint!
     var map: SKTileMapNode!
+    var players: [Player]!
     var PLAYER_SPEED = CGFloat(10)
     var steerProtocol: SteeringProtocol!
     var nextInPath: CGPoint!
@@ -30,12 +31,13 @@ class Player: SKSpriteNode {
     var hitPerSecond = 0.0
 
 
-    init(map: SKTileMapNode, textureName: String) {
+    init(map: SKTileMapNode, textureName: String, players: [Player]) {
         let texture = SKTexture(imageNamed: "\(textureName)_down")
         super.init(texture: texture, color: UIColor.clear, size: map.tileSize)
         self.position = CGPoint(x: 200, y:200)
         self.map = map
         self.textureName = textureName
+        self.players = players
         hp = CGFloat(0)
     }
     

@@ -20,8 +20,9 @@ class AStarAlgorithm: NSObject {
     var gScore = [CGPoint: CGFloat]()
     var fScore = [CGPoint: CGFloat]()
     
-    init(map: SKTileMapNode) {
+    init(map: SKTileMapNode, players: [Player]) {
         self.gameMap = map
+        self.players = players
     }
     
     func getPath(from: CGPoint, to: CGPoint) -> [CGPoint] {
@@ -68,6 +69,14 @@ class AStarAlgorithm: NSObject {
     }
     
     func heuristic(from: CGPoint, to: CGPoint) -> CGFloat {
+        
+        for player in players {
+            if intersectsTile(p1: from, p2: to, tileCenter: player.position) {
+                return CGFloat.infinity
+            }
+        }
+        
+        
         return sqrt(pow(from.x - to.x, 2) + pow(from.y - to.y, 2))
     }
     
@@ -114,6 +123,50 @@ class AStarAlgorithm: NSObject {
         }
         
         return neighbours
+    }
     
+    func intersectsTile(p1: CGPoint, p2: CGPoint, tileCenter: CGPoint) -> Bool {
+        let tileWidth = gameMap.tileSize.width
+        let tileHeight = gameMap.tileSize.height
+        
+        let upperLeftCornerX = tileCenter.x - tileWidth/2
+        let upperLeftCornerY = tileCenter.y + tileHeight/2
+        
+        let upperRightCornerX = tileCenter.x + tileWidth/2
+        let upperRightCornerY = upperLeftCornerY
+        
+        let bottomLeftCornerX = upperLeftCornerX
+        let bottomLeftCornerY = tileCenter.y - tileHeight/2
+        
+        let bottomRightCornerX = upperRightCornerX
+        let bottomRightCornerY = bottomLeftCornerY
+        
+        return lineIntersecsLine(p1, p2, CGPoint(x: upperLeftCornerX, y: upperLeftCornerY), CGPoint(x: upperRightCornerX, y: upperRightCornerY)) ||
+            lineIntersecsLine(p1, p2, CGPoint(x: upperRightCornerX,y: upperRightCornerY), CGPoint(x: bottomRightCornerX,y: bottomRightCornerY)) ||
+            lineIntersecsLine(p1, p2, CGPoint(x: bottomRightCornerX,y: bottomRightCornerY), CGPoint(x: bottomLeftCornerX,y: bottomLeftCornerY)) ||
+            lineIntersecsLine(p1, p2, CGPoint(x: bottomLeftCornerX,y: bottomLeftCornerY), CGPoint(x: upperLeftCornerX,y: upperLeftCornerY)) ||
+            (p1.x > upperLeftCornerX && p1.x < upperRightCornerX && p1.y < upperLeftCornerY && p1.y > bottomLeftCornerY) ||
+            (p2.x > upperLeftCornerX && p2.x < upperRightCornerX && p2.y < upperLeftCornerY && p2.y > bottomLeftCornerY)
+    }
+    
+    func lineIntersecsLine(_ l1p1: CGPoint,_ l1p2: CGPoint,_ l2p1: CGPoint,_ l2p2:CGPoint) -> Bool {
+        let q = (l1p1.y - l2p1.y) * (l2p2.x - l2p1.x) - (l1p1.x - l2p1.x) * (l2p2.y - l2p1.y)
+        let d = (l1p2.x - l1p1.x) * (l2p2.y - l2p1.y) - (l1p2.y - l1p1.y) * (l2p2.x - l2p1.x)
+        
+        if d == 0 {
+            return false;
+        }
+        
+        let r = q / d;
+        
+        let q2 = (l1p1.y - l2p1.y) * (l1p2.x - l1p1.x) - (l1p1.x - l2p1.x) * (l1p2.y - l1p1.y)
+        
+        let s = q2 / d;
+        
+        if r < 0 || r > 1 || s < 0 || s > 1 {
+            return false
+        }
+        
+        return true;
     }
 }
