@@ -13,10 +13,12 @@ class Knight: Player {
 
     var AStar: AStarAlgorithm!
     var target: Player!
+    let fireDamage = CGFloat(20)
+    var hasFireSword = false
     
     init(map: GameMap) {
         super.init(map: map, textureName: "knight")
-        self.position = CGPoint(x: 200, y:200)
+        self.position = CGPoint(x: 600, y:500)
         AStar = AStarAlgorithm(map: map)
         PLAYER_SPEED = CGFloat(10)
         steerProtocol = PathFollowingSteering()
@@ -42,7 +44,7 @@ class Knight: Player {
         }
         
         let path = AStar.getPath(from: positionInMap, to: point)
-        print(path)
+
         (steerProtocol as! PathFollowingSteering).setPath(path: path)
         moving = true
         move()
@@ -56,7 +58,17 @@ class Knight: Player {
     }
     
     override func attack() {
-        target.reciveDamage(damage: damage)
+        
+        let targetPosition = target.position.toMapCoords(map: map)
+        let currentPosition = position.toMapCoords(map: map)
+        
+        if distBetween(from: currentPosition, to: targetPosition) <= 2 {
+        if hasFireSword {
+            target.reciveFireDamage(damage: fireDamage)
+        } else {
+            target.reciveDamage(damage: damage)
+        }
+        }
         if target.state == State.DEAD {
             state = State.WONDERING
         }

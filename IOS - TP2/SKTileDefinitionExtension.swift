@@ -26,7 +26,7 @@ extension SKTileDefinition {
     }
     
     func getRow() -> Int {
-        return userData?.value(forKey: "col") as! Int
+        return userData?.value(forKey: "row") as! Int
     }
 
 }

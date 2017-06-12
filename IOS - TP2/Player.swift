@@ -30,6 +30,11 @@ class Player: SKSpriteNode {
     var hitPerSecond = 0.0
     
     let safeCheck = CGPoint()
+    
+    var centerXPassed = false
+    var centerYPassed = false
+    
+
 
 
     init(map: GameMap, textureName: String) {
@@ -58,11 +63,23 @@ class Player: SKSpriteNode {
         if nextInPath == safeCheck {
             moving = false
         }
+        let realDirection = direction.reverse()
         
-        position = position + (direction.reverse() * PLAYER_SPEED)
-        let distanceToCenter = position - (nextInPath?.toScreenCoords(map: map))!
+        position = position + (realDirection * PLAYER_SPEED)
+        let distanceToCenter = (position - (nextInPath?.toScreenCoords(map: map))!)
         
-        if abs(distanceToCenter.x) < PLAYER_SPEED*2 && abs(distanceToCenter.y) < PLAYER_SPEED*2 {
+        if abs(distanceToCenter.x * realDirection.x) < PLAYER_SPEED {
+            centerXPassed = true
+        }
+        
+        if abs(distanceToCenter.y * realDirection.y) < PLAYER_SPEED {
+            centerYPassed = true
+        }
+        
+        if centerXPassed && centerYPassed {
+            centerXPassed = false
+            centerYPassed = false
+            
             position = (nextInPath?.toScreenCoords(map: map))!
             
             if(steerProtocol.steeringEnded()){
@@ -115,6 +132,15 @@ class Player: SKSpriteNode {
         hp = hp - damage
         let blood = BloodAnimation.create(subject:  self)
         self.run(blood)
+        if(hp <= 0) {
+            state = State.DEAD
+        }
+    }
+    
+    func reciveFireDamage(damage: CGFloat) {
+        hp = hp - damage
+        let fire = FireAnimation.create(subject:  self)
+        self.run(fire)
         if(hp <= 0) {
             state = State.DEAD
         }

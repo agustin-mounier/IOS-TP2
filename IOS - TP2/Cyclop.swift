@@ -11,7 +11,7 @@ import SpriteKit
 
 class Cyclop: Player {
     
-    let VIEW_DISTANCE = CGFloat(60)
+    let VIEW_DISTANCE = CGFloat(4)
     var knight: Knight!
     
     init(map: GameMap, knight: Knight) {
