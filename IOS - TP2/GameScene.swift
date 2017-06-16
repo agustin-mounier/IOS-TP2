@@ -27,6 +27,9 @@ class GameScene: SKScene {
     var players = [Player]()
     let fireSwordNode = SKSpriteNode()
 
+    var HPLabel : SKLabelNode!
+    var attackPointsLabels: SKLabelNode!
+    
     override func didMove(to view: SKView) {
         map = GameMap(map: (scene?.childNode(withName:"Map"))! as! SKTileMapNode, players: players)
         knight = Knight(map: map)
@@ -55,6 +58,14 @@ class GameScene: SKScene {
         fireSwordNode.run(SKAction.repeatForever(fireSwordAnimation))
         addChild(fireSwordNode)
         
+        HPLabel = SKLabelNode(text: "HP: \(knight.hp!)")
+        attackPointsLabels = SKLabelNode(text: "Attack points: \(knight.damage)")
+        
+        HPLabel.fontColor = UIColor.black
+        attackPointsLabels.fontColor = UIColor.black
+        
+        addChild(HPLabel)
+        addChild(attackPointsLabels)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -67,6 +78,9 @@ class GameScene: SKScene {
         let cyclopTapped = cyclopTap(point: touchLocation)
         
         if cyclopTapped == nil {
+            if map.waterTiles.contains(touchLocation.toMapCoords(map: map)) {
+                return;
+            }
             knight.goTo(point: touchLocation.toMapCoords(map: map))
         } else {
             cyclopTapped?.selected = true
@@ -107,6 +121,7 @@ class GameScene: SKScene {
         }
         
         handleCam()
+        updateMenu()
     }
     
     func cyclopTap(point: CGPoint) -> Cyclop? {
@@ -128,14 +143,25 @@ class GameScene: SKScene {
         
         if knightPosition.y >= 13 && knightPosition.y <= 14 {
             cam.position.x = knight.position.x
+            HPLabel.position.x = knight.position.x + 750
+            attackPointsLabels.position.x = knight.position.x + 500
         }
         
         if knightPosition.x >= 5 && knightPosition.x <= 15 {
             cam.position.y = knight.position.y
+            HPLabel.position.y = knight.position.y + 450
+            attackPointsLabels.position.y = knight.position.y + 450
         }
-        
-        
-        
+    }
+  
+    
+    func updateMenu() {
+        HPLabel.text = "HP: \(knight.hp!)"
+        if knight.hasFireSword {
+            attackPointsLabels.text = "Attack points: \(knight.fireDamage)"
+        } else {
+            attackPointsLabels.text = "Attack points: \(knight.damage)"
+        }
     }
 
 }
